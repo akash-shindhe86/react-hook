@@ -1,20 +1,33 @@
-const { AxePuppeteer } = require('@axe-core/puppeteer');
+const { AxePuppeteer } = require('axe-puppeteer');
 const puppeteer = require('puppeteer');
+const fs = require('fs');
+const path = require('path');
 
 (async () => {
-  const browser = await puppeteer.launch({
-    executablePath: '/usr/bin/chromium',
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
-  });
-  const page = await browser.newPage();
-  await page.goto('/Users/ashin19/Desktop/albertsons/architecture/ADA/sample-repo/ada/html/3.html'); // Replace with your app's URL
+  const browser = await puppeteer.launch();
+  const htmlDir = path.resolve(__dirname, 'ada/html'); // Adjust the relative path accordingly
+  const files = fs.readdirSync(htmlDir).filter(file => file.endsWith('.html'));
 
-  const results = await new AxePuppeteer(page).analyze();
-  console.log(results.violations);
+  let hasViolations = false;
+
+  for (const file of files) {
+    const filePath = path.join(htmlDir, file);
+    const page = await browser.newPage();
+    await page.goto(`file://${filePath}`);
+
+    const results = await new AxePuppeteer(page).analyze();
+    console.log(`Results for ${file}:`, results.violations);
+
+    if (results.violations.length > 0) {
+      hasViolations = true;
+    }
+
+    await page.close();
+  }
 
   await browser.close();
 
-  if (results.violations.length > 0) {
+  if (hasViolations) {
     process.exit(1); // Exit with error if there are violations
   }
 })();
