@@ -4,7 +4,9 @@ const fs = require('fs');
 const path = require('path');
 
 (async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
   const htmlDir = path.resolve(__dirname, 'ada/html'); // Adjust the relative path accordingly
   const files = fs.readdirSync(htmlDir).filter(file => file.endsWith('.html'));
 
@@ -12,7 +14,7 @@ const path = require('path');
 
   for (const file of files) {
     const filePath = path.join(htmlDir, file);
-    const page = await browser.newPage();
+    browser.newPage();
     await page.goto(`file://${filePath}`);
 
     const results = await new AxePuppeteer(page).analyze();

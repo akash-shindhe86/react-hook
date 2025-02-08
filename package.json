@@ -9,10 +9,8 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "dependencies": {
-    "@axe-core/puppeteer": "^4.10.1"
-  },
   "devDependencies": {
+    "@axe-core/puppeteer": "^4.10.1",
     "axe-core": "^4.10.2",
     "puppeteer": "^24.2.0"
   }
