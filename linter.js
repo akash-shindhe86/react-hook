@@ -14,7 +14,7 @@ const path = require('path');
 
   for (const file of files) {
     const filePath = path.join(htmlDir, file);
-    browser.newPage();
+    const page = await browser.newPage(); // Ensure this line is correct
     await page.goto(`file://${filePath}`);
 
     const results = await new AxePuppeteer(page).analyze();
