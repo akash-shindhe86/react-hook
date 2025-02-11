@@ -2,9 +2,10 @@
   "name": "sample-repo",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+ "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "lint:css": "stylelint 'src/**/*.css' 'src/**/*.scss'"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -12,6 +13,9 @@
   "devDependencies": {
     "@axe-core/puppeteer": "^4.10.1",
     "axe-core": "^4.10.2",
-    "puppeteer": "^24.2.0"
+    "puppeteer": "^24.2.0",
+    "stylelint": "^16.14.1",
+    "stylelint-a11y": "^1.2.3",
+    "stylelint-config-standard": "^37.0.0"
   }
 }
