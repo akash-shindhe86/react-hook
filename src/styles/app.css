@@ -90,3 +90,30 @@
   .disclaimer-placeholder {
 	height: 231px;
   }
+  
+  /* ADA Issues */
+  .low-contrast-text {
+	color: #cccccc; /* Light gray text on white background */
+	background-color: #ffffff;
+  }
+  
+  .no-focus-styles a {
+	outline: none; /* Removing focus outline */
+  }
+  
+  .fixed-font-size {
+	font-size: 12px; /* Fixed font size */
+  }
+  
+  .non-descriptive-link a {
+	text-decoration: none;
+	color: blue;
+  }
+  
+  .overlapping-content {
+	position: absolute;
+	top: 50px;
+	left: 50px;
+	width: 200px;
+	height: 200px;
+  }
