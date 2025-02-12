@@ -2,10 +2,10 @@
   "name": "sample-repo",
   "version": "1.0.0",
   "main": "index.js",
- "scripts": {
-  "test": "echo \"Error: no test specified\" && exit 1",
-  "lint:css": "stylelint 'src/**/*.css' 'src/**/*.scss'"
-},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:css": "stylelint 'src/**/*.css' 'src/**/*.scss'"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

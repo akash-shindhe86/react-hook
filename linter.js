@@ -13,6 +13,16 @@ const stylelint = require('stylelint');
 
   let hasViolations = false;
 
+  // Function to scan a page with axe-core
+  const scanPage = async (page, file) => {
+    const results = await new AxePuppeteer(page).analyze();
+    console.log(`Results for ${file}:`, results.violations);
+
+    if (results.violations.length > 0) {
+      hasViolations = true;
+    }
+  };
+
   // Scan HTML files
   const htmlDir = path.resolve(__dirname, 'ada/html'); // Adjust the relative path accordingly
   const htmlFiles = fs.readdirSync(htmlDir).filter(file => file.endsWith('.html'));
@@ -22,13 +32,7 @@ const stylelint = require('stylelint');
     const page = await browser.newPage();
     await page.goto(`file://${filePath}`);
 
-    const results = await new AxePuppeteer(page).analyze();
-    console.log(`Results for ${file}:`, results.violations);
-
-    if (results.violations.length > 0) {
-      hasViolations = true;
-    }
-
+    await scanPage(page, file);
     await page.close();
   }
 
@@ -44,13 +48,7 @@ const stylelint = require('stylelint');
     const page = await browser.newPage();
     await page.setContent(html);
 
-    const results = await new AxePuppeteer(page).analyze();
-    console.log(`Results for ${file}:`, results.violations);
-
-    if (results.violations.length > 0) {
-      hasViolations = true;
-    }
-
+    await scanPage(page, file);
     await page.close();
   }
 
@@ -68,13 +66,7 @@ const stylelint = require('stylelint');
       const page = await browser.newPage();
       await page.setContent(html);
 
-      const results = await new AxePuppeteer(page).analyze();
-      console.log(`Results for ${file}:`, results.violations);
-
-      if (results.violations.length > 0) {
-        hasViolations = true;
-      }
-
+      await scanPage(page, file);
       await page.close();
     }
   }
