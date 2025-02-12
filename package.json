@@ -21,9 +21,12 @@
     "stylelint-config-standard": "^21.0.0"
   },
   "dependencies": {
+    "@types/node": "^22.13.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "stylelint-a11y": "^1.2.3",
-    "stylelint-config-recommended": "^5.0.0"
+    "stylelint-config-recommended": "^5.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
   }
 }

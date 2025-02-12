@@ -19,7 +19,7 @@ jobs:
         run: npm install
 
       - name: Run axe-core lint
-        run: node linter.js
+        run: npx ts-node linter.ts
 
       - name: Run CSS linting
         run: npm run lint:css
