@@ -1,0 +1,40 @@
+/* Sample CSS with ADA issues */
+
+/* Low contrast text */
+.low-contrast {
+    color: #777; /* Gray text on white background */
+    background-color: #fff;
+  }
+  
+  /* Missing focus styles */
+  .button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .button:focus {
+    outline: none; /* No focus outline */
+  }
+  
+  /* Absolute positioning without context */
+  .absolute-element {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 200px;
+    height: 100px;
+    background-color: #f00;
+  }
+  
+  /* Text inside an image without alt text */
+  .image-text {
+    background-image: url('image.jpg');
+    width: 300px;
+    height: 200px;
+    color: #fff;
+    text-align: center;
+    line-height: 200px;
+  }
