@@ -1,10 +1,10 @@
-const { AxePuppeteer } = require('@axe-core/puppeteer');
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
-const stylelint = require('stylelint');
+import { AxePuppeteer } from '@axe-core/puppeteer';
+import puppeteer from 'puppeteer';
+import fs from 'fs';
+import path from 'path';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import stylelint from 'stylelint';
 
 (async () => {
   const browser = await puppeteer.launch({
@@ -42,7 +42,7 @@ const stylelint = require('stylelint');
 
   for (const file of reactFiles) {
     const filePath = path.join(reactComponentsDir, file);
-    const Component = require(filePath).default;
+    const Component = (await import(filePath)).default;
     const html = ReactDOMServer.renderToString(React.createElement(Component));
 
     const page = await browser.newPage();
@@ -60,7 +60,7 @@ const stylelint = require('stylelint');
 
     for (const file of files) {
       const filePath = path.join(dirPath, file);
-      const Component = require(filePath).default;
+      const Component = (await import(filePath)).default;
       const html = ReactDOMServer.renderToString(React.createElement(Component));
 
       const page = await browser.newPage();
