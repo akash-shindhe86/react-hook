@@ -6,7 +6,11 @@
       "esModuleInterop": true,
       "skipLibCheck": true,
       "strict": true,
-      "jsx": "react"
+      "jsx": "react",
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["src/*"]
+      }
     },
     "include": ["src/**/*"]
   }
