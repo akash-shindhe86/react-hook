@@ -2,9 +2,14 @@ import { AxePuppeteer } from '@axe-core/puppeteer';
 import puppeteer from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import stylelint from 'stylelint';
+
+// Polyfill for __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 (async () => {
   const browser = await puppeteer.launch({
