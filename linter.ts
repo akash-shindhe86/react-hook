@@ -19,7 +19,7 @@ const __dirname = path.dirname(__filename);
   let hasViolations = false;
 
   // Function to scan a page with axe-core
-  const scanPage = async (page, file) => {
+  const scanPage = async (page: puppeteer.Page, file: string) => {
     const results = await new AxePuppeteer(page).analyze();
     console.log(`Results for ${file}:`, results.violations);
 
