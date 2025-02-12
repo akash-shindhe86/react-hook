@@ -13,6 +13,7 @@
   "description": "",
   "devDependencies": {
     "@axe-core/puppeteer": "^4.10.1",
+    "@types/jest": "^29.5.14",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@types/stylelint": "^13.13.3",

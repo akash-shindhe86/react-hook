@@ -10,7 +10,8 @@
       "baseUrl": ".",
       "paths": {
         "@/*": ["src/*"]
-      }
+      },
+      "types": ["jest"]
     },
-    "include": ["src/**/*"]
+    "include": ["src/**/*", "types/**/*"]
   }
