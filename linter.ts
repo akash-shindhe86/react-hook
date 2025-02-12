@@ -1,5 +1,5 @@
 import { AxePuppeteer } from '@axe-core/puppeteer';
-import puppeteer from 'puppeteer';
+import puppeteer, { Page } from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -19,7 +19,7 @@ const __dirname = path.dirname(__filename);
   let hasViolations = false;
 
   // Function to scan a page with axe-core
-  const scanPage = async (page: puppeteer.Page, file: string) => {
+  const scanPage = async (page: Page, file: string) => {
     const results = await new AxePuppeteer(page).analyze();
     console.log(`Results for ${file}:`, results.violations);
 
