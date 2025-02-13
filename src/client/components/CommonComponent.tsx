@@ -20,6 +20,7 @@ const moveContentToPlaceHolder = () => {
     }
 };
 
+/*
 const addScriptToDom = (className: string, src: string, onLoad?: any, onError?: any) => {
     const elements = document.getElementsByClassName(className);
 
@@ -33,14 +34,15 @@ const addScriptToDom = (className: string, src: string, onLoad?: any, onError?: 
         elements[0].appendChild(script);
     }
 };
+*/
 
 const CommonComponent = ({ configObj, config }: { configObj?: any, config?: any }) => {
     useEffect(() => {
         if (configObj?.pageType === 'pdp') {
             moveContentToPlaceHolder();
-            addScriptToDom('App-footer', 'https://pagead2.googlesyndication.com/tag/js/gpt.js', () => gamScriptLoaded(true), () => gamScriptLoaded(false));
+            // addScriptToDom('App-footer', 'https://pagead2.googlesyndication.com/tag/js/gpt.js', () => gamScriptLoaded(true), () => gamScriptLoaded(false));
         }
-        addScriptToDom('App-footer', config?.blueTriangleUrl);
+        // addScriptToDom('App-footer', config?.blueTriangleUrl);
     }, []);
 
     return (
