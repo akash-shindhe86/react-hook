@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import stylelint from 'stylelint';
+import babel from '@babel/core';
 
 // Polyfill for __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -44,12 +45,21 @@ const __dirname = path.dirname(__filename);
         await scanPage(page, file);
         await page.close();
       } else if (file.endsWith('.tsx') || file.endsWith('.jsx')) {
-        const Component = (await import(filePath)).default;
-        const html = ReactDOMServer.renderToString(React.createElement(Component));
-        const page = await browser.newPage();
-        await page.setContent(html);
-        await scanPage(page, file);
-        await page.close();
+        const code = fs.readFileSync(filePath, 'utf8');
+        const transformed = babel.transformSync(code, {
+          presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript']
+        });
+
+        if (transformed && transformed.code) {
+          const Component = eval(transformed.code).default;
+          const html = ReactDOMServer.renderToString(React.createElement(Component));
+          const page = await browser.newPage();
+          await page.setContent(html);
+          await scanPage(page, file);
+          await page.close();
+        } else {
+          console.error(`Error transforming ${filePath}`);
+        }
       } else if (file.endsWith('.css') || file.endsWith('.scss')) {
         const cssContent = fs.readFileSync(filePath, 'utf8');
         const lintResults = await stylelint.lint({
