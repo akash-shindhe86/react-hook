@@ -44,8 +44,7 @@ const __dirname = path.dirname(__filename);
         await scanPage(page, file);
         await page.close();
       } else if (file.endsWith('.tsx') || file.endsWith('.jsx')) {
-        const compiledFilePath = path.resolve(__dirname, 'dist', file.replace(/\.(tsx|jsx)$/, '.js'));
-        const Component = (await import(compiledFilePath)).default;
+        const Component = (await import(filePath)).default;
         const html = ReactDOMServer.renderToString(React.createElement(Component));
         const page = await browser.newPage();
         await page.setContent(html);
