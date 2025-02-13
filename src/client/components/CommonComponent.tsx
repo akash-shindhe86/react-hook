@@ -43,7 +43,12 @@ const CommonComponent = ({ configObj, config }: { configObj?: any, config?: any 
         addScriptToDom('App-footer', config?.blueTriangleUrl);
     }, []);
 
-    return (<></>);
+    return (
+        <div>
+            <h1>Enhanced Content Loaded</h1>
+            <p>This component handles the loading of enhanced content scripts.</p>
+        </div>
+    );
 };
 
 export default CommonComponent;
