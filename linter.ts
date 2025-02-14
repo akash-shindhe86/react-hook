@@ -2,7 +2,7 @@ import { AxePuppeteer } from '@axe-core/puppeteer';
 import puppeteer, { Page } from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, URL } from 'url';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import stylelint from 'stylelint';
@@ -58,8 +58,8 @@ const __dirname = path.dirname(__filename);
             ${transformed.code}
             export default Component;
           `;
-          const moduleUrl = `data:text/javascript;base64,${Buffer.from(script).toString('base64')}`;
-          const { default: Component } = await import(moduleUrl);
+          const moduleUrl = new URL(`data:text/javascript;base64,${Buffer.from(script).toString('base64')}`);
+          const { default: Component } = await import(moduleUrl.href);
           const html = ReactDOMServer.renderToString(React.createElement(Component));
           const page = await browser.newPage();
           await page.setContent(html);
@@ -82,8 +82,6 @@ const __dirname = path.dirname(__filename);
       }
     }
   };
-
-  
 
   // Scan HTML files in ada/html directory
   const htmlDir = path.resolve(__dirname, 'ada/html'); // Adjust the relative path accordingly
