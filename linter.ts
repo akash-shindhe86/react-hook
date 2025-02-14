@@ -58,7 +58,18 @@ const __dirname = path.dirname(__filename);
             ${transformed.code}
             export default Component;
           `;
-          const moduleUrl = new URL(`data:text/javascript;base64,${Buffer.from(script).toString('base64')}`);
+          let moduleUrl;
+          try {
+            moduleUrl = new URL(`data:text/javascript;base64,${Buffer.from(script).toString('base64')}`);
+          } catch (err) {
+            if (err.code === 'ERR_INVALID_URL') {
+              console.error("Invalid URL:", err.message);
+              return;
+            } else {
+              console.error("An unexpected error occurred:", err);
+              return;
+            }
+          }
           const { default: Component } = await import(moduleUrl.href);
           const html = ReactDOMServer.renderToString(React.createElement(Component));
           const page = await browser.newPage();
