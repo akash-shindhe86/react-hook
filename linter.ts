@@ -47,6 +47,7 @@ const __dirname = path.dirname(__filename);
       } else if (file.endsWith('.tsx') || file.endsWith('.jsx')) {
         const code = fs.readFileSync(filePath, 'utf8');
         const transformed = babel.transformSync(code, {
+          filename: filePath, // Add filename option
           presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript']
         });
 
