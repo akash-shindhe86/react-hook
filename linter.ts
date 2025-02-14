@@ -76,6 +76,7 @@ const __dirname = path.dirname(__filename);
     }
   };
 
+  
   // Scan HTML files in ada/html directory
   const htmlDir = path.resolve(__dirname, 'ada/html'); // Adjust the relative path accordingly
   const htmlFiles = fs.readdirSync(htmlDir).filter(file => file.endsWith('.html'));
