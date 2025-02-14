@@ -1,5 +1,3 @@
-import { AxePuppeteer } from '@axe-core/puppeteer';
-import puppeteer, { Page } from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath, URL } from 'url';
@@ -62,13 +60,12 @@ const __dirname = path.dirname(__filename);
           try {
             moduleUrl = new URL(`data:text/javascript;base64,${Buffer.from(script).toString('base64')}`);
           } catch (err) {
-            if (err.code === 'ERR_INVALID_URL') {
+            if (err instanceof Error) {
               console.error("Invalid URL:", err.message);
-              return;
             } else {
               console.error("An unexpected error occurred:", err);
-              return;
             }
+            return;
           }
           const { default: Component } = await import(moduleUrl.href);
           const html = ReactDOMServer.renderToString(React.createElement(Component));
