@@ -1,0 +1,48 @@
+/* index.css */
+
+/* Reset some default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Set a default font and background color */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Style for headings */
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 1rem;
+    color: #444;
+  }
+  
+  /* Style for paragraphs */
+  p {
+    margin-bottom: 1rem;
+  }
+  
+  /* Container class for layout */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  /* Example of a button style */
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
