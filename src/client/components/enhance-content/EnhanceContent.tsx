@@ -162,8 +162,8 @@ const EnhanceContent: React.FC<EnhanceContentProps> = ({ config, bpn }): React.R
     return (
         <div className="disclaimer-row enhanced-content d-none">
             <div className="row container-row">
-            {/* <div className="col-12 detail-section enhanced-content__container" aria-hidden="true"> */}
-                <div className="col-12 detail-section enhanced-content__container">
+                {/* <div className="col-12 detail-section enhanced-content__container" aria-hidden="true"> */}
+                <div className="col-12 detail-section enhanced-content__container" >
                     <div className="container-product-more-pdp">
                         <div id="syndi_inline" tabIndex={-1}></div>
                     </div>
