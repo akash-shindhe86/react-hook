@@ -52,7 +52,8 @@ const __dirname = path.dirname(__filename);
         });
 
         if (transformed && transformed.code) {
-          const Component = eval(transformed.code).default;
+          const moduleUrl = `data:text/javascript;base64,${Buffer.from(transformed.code).toString('base64')}`;
+          const { default: Component } = await import(moduleUrl);
           const html = ReactDOMServer.renderToString(React.createElement(Component));
           const page = await browser.newPage();
           await page.setContent(html);
@@ -76,7 +77,6 @@ const __dirname = path.dirname(__filename);
     }
   };
 
-  
   // Scan HTML files in ada/html directory
   const htmlDir = path.resolve(__dirname, 'ada/html'); // Adjust the relative path accordingly
   const htmlFiles = fs.readdirSync(htmlDir).filter(file => file.endsWith('.html'));
