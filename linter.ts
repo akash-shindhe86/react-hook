@@ -7,6 +7,7 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import stylelint from 'stylelint';
 import babel from '@babel/core';
+import { NodeVM } from 'vm2';
 
 // Polyfill for __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -53,9 +54,18 @@ const __dirname = path.dirname(__filename);
         });
 
         if (transformed && transformed.code) {
-          const moduleUrl = `data:text/javascript;base64,${Buffer.from(transformed.code).toString('base64')}`;
-          const { default: Component } = await import(moduleUrl);
-          const html = ReactDOMServer.renderToString(React.createElement(Component));
+          const vm = new NodeVM({
+            console: 'inherit',
+            sandbox: {},
+            require: {
+              external: true,
+              root: './'
+            }
+          });
+
+          const script = new vm.Script(transformed.code);
+          const Component = vm.run(script);
+          const html = ReactDOMServer.renderToString(React.createElement(Component.default));
           const page = await browser.newPage();
           await page.setContent(html);
           await scanPage(page, file);
