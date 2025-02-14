@@ -1,3 +1,5 @@
+import { AxePuppeteer } from '@axe-core/puppeteer';
+import puppeteer, { Page } from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath, URL } from 'url';
