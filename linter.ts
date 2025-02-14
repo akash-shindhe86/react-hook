@@ -7,7 +7,6 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import stylelint from 'stylelint';
 import babel from '@babel/core';
-import { NodeVM } from 'vm2';
 
 // Polyfill for __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -49,23 +48,19 @@ const __dirname = path.dirname(__filename);
         const code = fs.readFileSync(filePath, 'utf8');
         const transformed = babel.transformSync(code, {
           filename: filePath,
-          presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
-          plugins: ['@babel/plugin-transform-modules-commonjs']
+          presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript']
         });
 
         if (transformed && transformed.code) {
-          const vm = new NodeVM({
-            console: 'inherit',
-            sandbox: {},
-            require: {
-              external: true,
-              root: './'
-            }
-          });
-
-          const script = new vm.Script(transformed.code);
-          const Component = vm.run(script);
-          const html = ReactDOMServer.renderToString(React.createElement(Component.default));
+          const script = `
+            import React from 'react';
+            import ReactDOMServer from 'react-dom/server';
+            ${transformed.code}
+            export default Component;
+          `;
+          const moduleUrl = `data:text/javascript;base64,${Buffer.from(script).toString('base64')}`;
+          const { default: Component } = await import(moduleUrl);
+          const html = ReactDOMServer.renderToString(React.createElement(Component));
           const page = await browser.newPage();
           await page.setContent(html);
           await scanPage(page, file);
