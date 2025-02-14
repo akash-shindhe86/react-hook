@@ -48,7 +48,8 @@ const __dirname = path.dirname(__filename);
         const code = fs.readFileSync(filePath, 'utf8');
         const transformed = babel.transformSync(code, {
           filename: filePath,
-          presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript']
+          presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+          plugins: ['@babel/plugin-transform-modules-commonjs']
         });
 
         if (transformed && transformed.code) {
